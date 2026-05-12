@@ -5,6 +5,16 @@ import { LOCATIONS, CAMPUS_CENTER, CATEGORY_META, type Location } from "@/lib/ex
 const CESIUM_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzYzZmZGI0MC05ZWE0LTQwMzktOWU5OC1mZjQxMTZiOTI5YmEiLCJpZCI6NDMwMzk5LCJpc3MiOiJodHRwczovL2lvbi5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3Nzg1NTg1MjJ9.8jL2Gcnf29lihMNg7bQyIlVkgdQ8MOFBZpNie7Yl5AY";
 
+// Hard campus bounds (slightly padded around the Outline.geojson extents)
+const CAMPUS_BOUNDS = {
+  minLon: 81.8062,
+  maxLon: 81.8101,
+  minLat: 16.3970,
+  maxLat: 16.4012,
+};
+const MIN_HEIGHT = 120;
+const MAX_HEIGHT = 1600;
+
 export type MapHandle = {
   flyToLocation: (loc: Location, opts?: { duration?: number; pitch?: number }) => void;
   resetView: () => void;
