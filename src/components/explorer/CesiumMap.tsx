@@ -5,15 +5,9 @@ import { LOCATIONS, CAMPUS_CENTER, CATEGORY_META, type Location } from "@/lib/ex
 const CESIUM_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzYzZmZGI0MC05ZWE0LTQwMzktOWU5OC1mZjQxMTZiOTI5YmEiLCJpZCI6NDMwMzk5LCJpc3MiOiJodHRwczovL2lvbi5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3Nzg1NTg1MjJ9.8jL2Gcnf29lihMNg7bQyIlVkgdQ8MOFBZpNie7Yl5AY";
 
-// Hard campus bounds (slightly padded around the Outline.geojson extents)
-const CAMPUS_BOUNDS = {
-  minLon: 81.8062,
-  maxLon: 81.8101,
-  minLat: 16.3970,
-  maxLat: 16.4012,
-};
-const MIN_HEIGHT = 120;
-const MAX_HEIGHT = 4000;
+// Soft zoom limits — allow free regional exploration but prevent globe-scale zoom out
+const MIN_HEIGHT = 80;
+const MAX_HEIGHT = 25000;
 
 export type MapHandle = {
   flyToLocation: (loc: Location, opts?: { duration?: number; pitch?: number }) => void;
@@ -124,16 +118,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
       viewer.scene.fog.density = 0.002;
       viewer.scene.fog.screenSpaceErrorFactor = 8;
       viewer.scene.globe.enableLighting = false;
-      // Dim the rest of the world so campus feels like an isolated island
-      viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString("#0b1320");
-      viewer.scene.backgroundColor = Cesium.Color.fromCssColorString("#0b1320");
-      try {
-        viewer.scene.skyBox.show = false;
-        viewer.scene.sun.show = false;
-        viewer.scene.moon.show = false;
-      } catch {}
 
-      // Lock camera controller to campus-scale interaction
       const ctrl = viewer.scene.screenSpaceCameraController;
       ctrl.minimumZoomDistance = MIN_HEIGHT;
       ctrl.maximumZoomDistance = MAX_HEIGHT;
@@ -228,43 +213,6 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
       viewer.camera.changed.addEventListener(onChange);
       viewer.camera.percentageChanged = 0.01;
       removeCamera = () => viewer.camera.changed.removeEventListener(onChange);
-
-      // Soft boundary clamp — gently pull camera back if it strays outside campus
-      let clamping = false;
-      const clampTick = () => {
-        if (clamping) return;
-        const pos = viewer.camera.positionCartographic;
-        const lon = Cesium.Math.toDegrees(pos.longitude);
-        const lat = Cesium.Math.toDegrees(pos.latitude);
-        const h = pos.height;
-        const out =
-          lon < CAMPUS_BOUNDS.minLon || lon > CAMPUS_BOUNDS.maxLon ||
-          lat < CAMPUS_BOUNDS.minLat || lat > CAMPUS_BOUNDS.maxLat ||
-          h > MAX_HEIGHT || h < MIN_HEIGHT;
-        if (!out) return;
-        clamping = true;
-        const clLon = Math.min(CAMPUS_BOUNDS.maxLon, Math.max(CAMPUS_BOUNDS.minLon, lon));
-        const clLat = Math.min(CAMPUS_BOUNDS.maxLat, Math.max(CAMPUS_BOUNDS.minLat, lat));
-        const clH = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, h));
-        viewer.camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(clLon, clLat, clH),
-          orientation: {
-            heading: viewer.camera.heading,
-            pitch: Math.max(viewer.camera.pitch, Cesium.Math.toRadians(-75)),
-            roll: 0,
-          },
-          duration: 0.9,
-          easingFunction: Cesium.EasingFunction.QUADRATIC_OUT,
-          complete: () => { clamping = false; },
-          cancel: () => { clamping = false; },
-        });
-      };
-      viewer.scene.postRender.addEventListener(clampTick);
-      const prevRemove = removeCamera;
-      removeCamera = () => {
-        prevRemove?.();
-        try { viewer.scene.postRender.removeEventListener(clampTick); } catch {}
-      };
 
       onReady?.();
     }).catch((e) => console.error("Cesium failed to init", e));
