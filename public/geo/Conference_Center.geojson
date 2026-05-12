@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Conference Center",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Conference Center", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 81.80875964882155, 16.398361532565868, 0.0 ], [ 81.808517959596003, 16.398311218600071, 0.0 ], [ 81.808555390215872, 16.39818092131538, 0.0 ], [ 81.808789704404631, 16.398218147262, 0.0 ], [ 81.80878768955067, 16.39821621810896, 0.0 ], [ 81.80875964882155, 16.398361532565868, 0.0 ] ] ] } }
+]
+}

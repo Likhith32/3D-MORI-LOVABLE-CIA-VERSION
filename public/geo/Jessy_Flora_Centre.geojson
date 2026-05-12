@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Auditorium - Jessy Flora Centre",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Jessy Flora Centre ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 81.80743763482225, 16.39921022502698, 0.0 ], [ 81.807742521257197, 16.39929523086472, 0.0 ], [ 81.807683381284662, 16.399583396025619, 0.0 ], [ 81.807366486324227, 16.399493624478879, 0.0 ], [ 81.80743763482225, 16.39921022502698, 0.0 ] ] ] } }
+]
+}
