@@ -13,7 +13,7 @@ const CAMPUS_BOUNDS = {
   maxLat: 16.4012,
 };
 const MIN_HEIGHT = 120;
-const MAX_HEIGHT = 1600;
+const MAX_HEIGHT = 4000;
 
 export type MapHandle = {
   flyToLocation: (loc: Location, opts?: { duration?: number; pitch?: number }) => void;
