@@ -4,10 +4,10 @@ import { LOCATIONS, CATEGORY_META, type Location } from "@/lib/explorer/location
 
 // Bounds derived from the campus outline geojson
 const BOUNDS = {
-  minLon: 81.8068,
-  maxLon: 81.8095,
-  minLat: 16.3974,
-  maxLat: 16.4007,
+  minLon: 81.8062,
+  maxLon: 81.8101,
+  minLat: 16.3970,
+  maxLat: 16.4012,
 };
 
 function project(lon: number, lat: number) {
