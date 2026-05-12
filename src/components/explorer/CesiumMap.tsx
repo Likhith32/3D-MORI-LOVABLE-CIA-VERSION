@@ -121,8 +121,23 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
       viewer.scene.globe.depthTestAgainstTerrain = true;
       viewer.scene.skyAtmosphere.show = true;
       viewer.scene.fog.enabled = true;
-      viewer.scene.fog.density = 0.0002;
+      viewer.scene.fog.density = 0.002;
+      viewer.scene.fog.screenSpaceErrorFactor = 8;
       viewer.scene.globe.enableLighting = false;
+      // Dim the rest of the world so campus feels like an isolated island
+      viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString("#0b1320");
+      viewer.scene.backgroundColor = Cesium.Color.fromCssColorString("#0b1320");
+      try {
+        viewer.scene.skyBox.show = false;
+        viewer.scene.sun.show = false;
+        viewer.scene.moon.show = false;
+      } catch {}
+
+      // Lock camera controller to campus-scale interaction
+      const ctrl = viewer.scene.screenSpaceCameraController;
+      ctrl.minimumZoomDistance = MIN_HEIGHT;
+      ctrl.maximumZoomDistance = MAX_HEIGHT;
+      ctrl.enableCollisionDetection = true;
 
       // Initial cinematic camera
       viewer.camera.setView({
@@ -213,6 +228,43 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
       viewer.camera.changed.addEventListener(onChange);
       viewer.camera.percentageChanged = 0.01;
       removeCamera = () => viewer.camera.changed.removeEventListener(onChange);
+
+      // Soft boundary clamp — gently pull camera back if it strays outside campus
+      let clamping = false;
+      const clampTick = () => {
+        if (clamping) return;
+        const pos = viewer.camera.positionCartographic;
+        const lon = Cesium.Math.toDegrees(pos.longitude);
+        const lat = Cesium.Math.toDegrees(pos.latitude);
+        const h = pos.height;
+        const out =
+          lon < CAMPUS_BOUNDS.minLon || lon > CAMPUS_BOUNDS.maxLon ||
+          lat < CAMPUS_BOUNDS.minLat || lat > CAMPUS_BOUNDS.maxLat ||
+          h > MAX_HEIGHT || h < MIN_HEIGHT;
+        if (!out) return;
+        clamping = true;
+        const clLon = Math.min(CAMPUS_BOUNDS.maxLon, Math.max(CAMPUS_BOUNDS.minLon, lon));
+        const clLat = Math.min(CAMPUS_BOUNDS.maxLat, Math.max(CAMPUS_BOUNDS.minLat, lat));
+        const clH = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, h));
+        viewer.camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(clLon, clLat, clH),
+          orientation: {
+            heading: viewer.camera.heading,
+            pitch: Math.max(viewer.camera.pitch, Cesium.Math.toRadians(-75)),
+            roll: 0,
+          },
+          duration: 0.9,
+          easingFunction: Cesium.EasingFunction.QUADRATIC_OUT,
+          complete: () => { clamping = false; },
+          cancel: () => { clamping = false; },
+        });
+      };
+      viewer.scene.postRender.addEventListener(clampTick);
+      const prevRemove = removeCamera;
+      removeCamera = () => {
+        prevRemove?.();
+        try { viewer.scene.postRender.removeEventListener(clampTick); } catch {}
+      };
 
       onReady?.();
     }).catch((e) => console.error("Cesium failed to init", e));
