@@ -500,6 +500,25 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });
+
+        // 6. Dance Studio
+        const dPos = Cesium.Cartesian3.fromDegrees(81.807445, 16.400049, 0);
+        viewer.entities.add({
+          id: "loc-amy-3d",
+          name: "Dance Studio",
+          position: dPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            dPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/Dance_Studio.glb",
+            minimumPixelSize: 128,
+            maximumScale: 20000,
+            scale: 2.0,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
       } catch (e) {
         console.warn("Error adding 3D models:", e);
       }
