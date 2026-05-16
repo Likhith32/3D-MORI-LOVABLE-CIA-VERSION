@@ -21,10 +21,20 @@ type Props = {
   cameraLat: number;
   cameraHeading: number; // radians
   onSelect: (loc: Location) => void;
+  activeLayer?: string;
 };
 
-export default function Minimap({ cameraLon, cameraLat, cameraHeading, onSelect }: Props) {
+const MAP_FILTERS: Record<string, string> = {
+  satellite: "none",
+  hybrid: "none",
+  street: "grayscale(0.5) brightness(1.15) contrast(1.1)",
+  terrain: "sepia(0.3) saturate(1.2) brightness(0.95)",
+  dark: "invert(0.95) hue-rotate(170deg) brightness(0.7) contrast(1.2)",
+};
+
+export default function Minimap({ cameraLon, cameraLat, cameraHeading, onSelect, activeLayer = "satellite" }: Props) {
   const cam = project(cameraLon, cameraLat);
+  const activeFilter = MAP_FILTERS[activeLayer] || "none";
 
   return (
     <motion.div
@@ -34,7 +44,12 @@ export default function Minimap({ cameraLon, cameraLat, cameraHeading, onSelect 
       className="glass-strong fixed bottom-4 right-4 z-20 w-[260px] overflow-hidden rounded-3xl p-2"
     >
       <div className="relative aspect-square overflow-hidden rounded-2xl">
-        <img src={minimapImg} alt="Mori School campus minimap" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={minimapImg}
+          alt="Mori School campus minimap"
+          className="absolute inset-0 h-full w-full object-cover transition-all duration-700"
+          style={{ filter: activeFilter }}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
 
         {/* Markers */}

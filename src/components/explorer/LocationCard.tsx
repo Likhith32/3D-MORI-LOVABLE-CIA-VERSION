@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Navigation, Clock, Footprints, Heart, Share2, MapPin } from "lucide-react";
 import { CATEGORY_META, type Location, CAMPUS_CENTER } from "@/lib/explorer/locations";
+import { cn } from "@/lib/utils";
 
 type Props = {
   location: Location | null;
@@ -32,27 +33,44 @@ export default function LocationCard({ location, onClose, onNavigate }: Props) {
           className="fixed bottom-4 left-1/2 z-30 w-[min(440px,calc(100vw-2rem))] -translate-x-1/2"
         >
           <div className="glass-strong overflow-hidden rounded-3xl">
-            {/* Hero gradient */}
-            <div className="relative h-28 overflow-hidden">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: `radial-gradient(120% 100% at 0% 0%, ${CATEGORY_META[location.category].color} 0%, transparent 60%), linear-gradient(135deg, color-mix(in oklab, ${CATEGORY_META[location.category].color} 30%, white), white)`,
-                }}
-              />
-              <div className="absolute inset-0 backdrop-blur-[2px]" />
+            {/* Hero image or gradient */}
+            <div className={cn("relative overflow-hidden", location.image ? "h-48" : "h-28")}>
+              {location.image ? (
+                <>
+                  <img
+                    src={location.image}
+                    alt={location.name}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </>
+              ) : (
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `radial-gradient(120% 100% at 0% 0%, ${CATEGORY_META[location.category].color} 0%, transparent 60%), linear-gradient(135deg, color-mix(in oklab, ${CATEGORY_META[location.category].color} 30%, white), white)`,
+                  }}
+                />
+              )}
+              <div className="absolute inset-0 backdrop-blur-[1px]" />
               <button
                 onClick={onClose}
-                className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/80 text-foreground/70 shadow-sm transition hover:bg-white"
+                className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-black/20 text-white/90 backdrop-blur-md transition hover:bg-black/40"
               >
                 <X className="h-4 w-4" />
               </button>
               <div className="absolute left-4 bottom-3 flex items-center gap-2">
-                <span className="grid h-9 w-9 place-items-center rounded-2xl bg-white/85 shadow-sm">
+                <span className={cn(
+                  "grid h-9 w-9 place-items-center rounded-2xl shadow-sm",
+                  location.image ? "bg-white/95" : "bg-white/85"
+                )}>
                   <MapPin className="h-4 w-4" style={{ color: CATEGORY_META[location.category].ring }} />
                 </span>
                 <div>
-                  <div className="text-[11px] font-medium uppercase tracking-wider text-foreground/60">
+                  <div className={cn(
+                    "text-[11px] font-bold uppercase tracking-wider",
+                    location.image ? "text-white drop-shadow-sm" : "text-foreground/60"
+                  )}>
                     {CATEGORY_META[location.category].label}
                   </div>
                 </div>

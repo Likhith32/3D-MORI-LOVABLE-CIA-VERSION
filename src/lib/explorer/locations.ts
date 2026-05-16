@@ -7,19 +7,28 @@ export type Location = {
   description: string;
   hours?: string;
   geojson?: string;
+  camera?: {
+    heading?: number;
+    pitch?: number;
+    range?: number;
+    offset?: { lon: number; lat: number };
+  };
+  image?: string;
 };
 
-export const CAMPUS_CENTER = { lon: 81.80852, lat: 16.39935, height: 600 };
+export const CAMPUS_CENTER = { lon: 81.808466, lat: 16.399274, height: 600 };
 
 export const LOCATIONS: Location[] = [
   {
     id: "riverside",
     name: "Riverside School",
     category: "academic",
-    lon: 81.80850, lat: 16.39935,
+    lon: 81.808723, lat: 16.399054,
     description: "The heart of campus — home to classrooms, learning labs and student life.",
     hours: "7:30 — 17:00",
     geojson: "/geo/Outline.geojson",
+    image: "/images/Slide1.JPG",
+    camera: { heading: 260, pitch: -25, range: 150, offset: { lon: 0.0008, lat: 0 } },
   },
   {
     id: "main",
@@ -38,6 +47,7 @@ export const LOCATIONS: Location[] = [
     description: "Full-service mission hospital serving students, staff and the village.",
     hours: "Open 24h",
     geojson: "/geo/Subbamma_Hospital.geojson",
+    camera: { heading: 260, pitch: -25, range: 150, offset: { lon: 0.0008, lat: 0 } },
   },
   {
     id: "smartvillage",
@@ -52,7 +62,7 @@ export const LOCATIONS: Location[] = [
     id: "conference",
     name: "Conference Center",
     category: "academic",
-    lon: 81.80867, lat: 16.39827,
+    lon: 81.808737, lat: 16.398261,
     description: "Modern hall for assemblies, conferences and faculty gatherings.",
     geojson: "/geo/Conference_Center.geojson",
   },
@@ -60,7 +70,7 @@ export const LOCATIONS: Location[] = [
     id: "jessy",
     name: "Jessy Flora Auditorium",
     category: "culture",
-    lon: 81.80755, lat: 16.39939,
+    lon: 81.807642, lat: 16.399459,
     description: "Cinematic auditorium for performances, ceremonies and cultural nights.",
     geojson: "/geo/Jessy_Flora_Centre.geojson",
   },
@@ -108,6 +118,13 @@ export const LOCATIONS: Location[] = [
     category: "academic",
     lon: 81.80790, lat: 16.39870,
     description: "Open sports field for football, cricket and athletics.",
+  },
+  {
+    id: "subbamma-house",
+    name: "Subbamma House",
+    category: "residential",
+    lon: 81.808786, lat: 16.400107,
+    description: "Historical residence associated with the Subbamma Mission.",
   },
 ];
 

@@ -16,12 +16,24 @@ export const Route = createFileRoute("/")({
   ssr: false,
 });
 
+import LayerSwitcher from "@/components/explorer/LayerSwitcher";
+import ViewController from "@/components/explorer/ViewController";
+import { useEffect } from "react";
+
 function Explorer() {
   const mapRef = useRef<MapHandle>(null);
   const [ready, setReady] = useState(false);
   const [selected, setSelected] = useState<Location | null>(null);
   const [tourActive, setTourActive] = useState(false);
   const [tourIndex, setTourIndex] = useState(0);
+  const [activeMode, setActiveMode] = useState("cinematic");
+  const [activeLayer, setActiveLayer] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("mori-map-imagery") || "satellite";
+    }
+    return "satellite";
+  });
+
   const [camera, setCamera] = useState({
     lon: CAMPUS_CENTER.lon,
     lat: CAMPUS_CENTER.lat,
@@ -29,9 +41,21 @@ function Explorer() {
     height: 1400,
   });
 
+  const handleLayerChange = (id: string) => {
+    setActiveLayer(id);
+    localStorage.setItem("mori-map-imagery", id);
+    mapRef.current?.setImagery(id);
+  };
+
+  const handleModeChange = (id: string) => {
+    setActiveMode(id);
+    mapRef.current?.setViewMode(id);
+  };
+
   const goTo = useCallback((loc: Location) => {
     setSelected(loc);
     mapRef.current?.flyToLocation(loc);
+    // Reset to free or cinematic view logic? Clicking location should not restrict users but clear modes.
   }, []);
 
   return (
@@ -62,11 +86,15 @@ function Explorer() {
 
       <StartTourFab onClick={() => { setTourIndex(0); setTourActive(true); }} />
 
+      <ViewController activeMode={activeMode} onModeChange={handleModeChange} />
+      <LayerSwitcher currentLayer={activeLayer} onChange={handleLayerChange} />
+
       <Minimap
         cameraLon={camera.lon}
         cameraLat={camera.lat}
         cameraHeading={camera.heading}
         onSelect={goTo}
+        activeLayer={activeLayer}
       />
 
       <LocationCard
