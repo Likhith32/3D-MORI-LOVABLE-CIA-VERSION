@@ -426,7 +426,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         });
 
         // 2. Riverside School
-        const sPos = Cesium.Cartesian3.fromDegrees(81.808723, 16.399054, 0);
+        const sPos = Cesium.Cartesian3.fromDegrees(81.808766, 16.399242, 0);
         viewer.entities.add({
           id: "loc-riverside-3d",
           name: "School Building Model",
@@ -496,7 +496,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
             uri: "/models/Subbamma_House.glb",
             minimumPixelSize: 128,
             maximumScale: 20000,
-            scale: 0.8,
+            scale: 0.5,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });
@@ -515,7 +515,64 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
             uri: "/models/Dance_Studio.glb",
             minimumPixelSize: 128,
             maximumScale: 20000,
-            scale: 2.0,
+            scale: 0.8,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
+
+        // 7. Bethel Villa
+        const bvPos = Cesium.Cartesian3.fromDegrees(81.808208, 16.400037, 0);
+        viewer.entities.add({
+          id: "loc-bethel-villa-3d",
+          name: "Bethel Villa",
+          position: bvPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            bvPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/Betherl villa.glb",
+            minimumPixelSize: 128,
+            maximumScale: 20000,
+            scale: 1.5,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
+
+        // 8. Chairman Residency
+        const crPos = Cesium.Cartesian3.fromDegrees(81.808374, 16.399912, 0);
+        viewer.entities.add({
+          id: "loc-chairman-residency-3d",
+          name: "Chairman Residency",
+          position: crPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            crPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/chairman_residency.glb",
+            minimumPixelSize: 128,
+            maximumScale: 20000,
+            scale: 0.9,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
+
+        // 9. Gate of Salvation
+        const gsPos = Cesium.Cartesian3.fromDegrees(81.809300, 16.398948, 0);
+        viewer.entities.add({
+          id: "loc-gate-salvation-3d",
+          name: "Gate of Salvation",
+          position: gsPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            gsPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/gate_of_salvation.glb",
+            minimumPixelSize: 128,
+            maximumScale: 20000,
+            scale: 1.5,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });

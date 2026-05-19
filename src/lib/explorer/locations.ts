@@ -23,7 +23,7 @@ export const LOCATIONS: Location[] = [
     id: "riverside",
     name: "Riverside School",
     category: "academic",
-    lon: 81.808723, lat: 16.399054,
+    lon: 81.808766, lat: 16.399242,
     description: "The heart of campus — home to classrooms, learning labs and student life.",
     hours: "7:30 — 17:00",
     geojson: "/geo/Outline.geojson",
@@ -129,6 +129,27 @@ export const LOCATIONS: Location[] = [
     lon: 81.808786, lat: 16.400107,
     description: "A beautifully preserved historical residence that honors the heritage and legacy of the Subbamma Mission founders.",
     image: "/images/Subbamma_House_2.jpg",
+  },
+  {
+    id: "bethel-villa",
+    name: "Bethel Villa",
+    category: "residential",
+    lon: 81.808208, lat: 16.400037,
+    description: "A peaceful residential villa providing comfortable accommodation for campus residents.",
+  },
+  {
+    id: "chairman-residency",
+    name: "Chairman Residency",
+    category: "residential",
+    lon: 81.808374, lat: 16.399912,
+    description: "The official residence of the campus chairman, reflecting the administrative heritage of the institution.",
+  },
+  {
+    id: "gate-salvation",
+    name: "Gate of Salvation",
+    category: "spiritual",
+    lon: 81.809300, lat: 16.398948,
+    description: "The symbolic entrance to the campus, representing the spiritual and welcoming nature of the mission.",
   },
 ];
 
