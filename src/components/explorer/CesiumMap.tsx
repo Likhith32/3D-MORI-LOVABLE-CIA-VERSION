@@ -740,7 +740,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         });
 
         // 6. Dance Studio
-        const dPos = Cesium.Cartesian3.fromDegrees(81.807993, 16.399867, 0);
+        const dPos = Cesium.Cartesian3.fromDegrees(81.807790, 16.399806, 0);
         viewer.entities.add({
           id: "loc-amy-3d",
           name: "Dance Studio",
@@ -802,7 +802,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
           ),
           model: {
             uri: "/models/Chappel.glb",
-            scale: 1.2,
+            scale: 0.6,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });
@@ -836,7 +836,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
           ),
           model: {
             uri: "/models/Subbamma chapppel.glb",
-            scale: 1.0,
+            scale: 0.5,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });

@@ -111,7 +111,7 @@ export const LOCATIONS: Location[] = [
     id: "amy",
     name: "Amy Dance Studio",
     category: "culture",
-    lon: 81.807993, lat: 16.399867,
+    lon: 81.807790, lat: 16.399806,
     description: "A vibrant, light-filled creative space dedicated to the practice and performance of traditional and modern dance forms. Features floor-to-ceiling mirrors, dance barres, and audio hardware.",
     geojson: "/geo/Amy_Dance_Studio.geojson",
     image: "/images/Dance_Studio.JPG",
