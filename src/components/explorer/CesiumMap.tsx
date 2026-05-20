@@ -672,7 +672,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         });
 
         // 2. Riverside School
-        const sPos = Cesium.Cartesian3.fromDegrees(81.808723, 16.399054, 0);
+        const sPos = Cesium.Cartesian3.fromDegrees(81.808766, 16.399242, 0);
         viewer.entities.add({
           id: "loc-riverside-3d",
           name: "School Building Model",

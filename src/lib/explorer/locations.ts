@@ -247,6 +247,27 @@ export const LOCATIONS: Location[] = [
       "https://images.unsplash.com/photo-1545638190-280685c17cf7?q=80&w=1200"
     ],
   },
+  {
+    id: "bethel-villa",
+    name: "Bethel Villa",
+    category: "residential",
+    lon: 81.808208, lat: 16.400037,
+    description: "A peaceful residential villa providing comfortable accommodation for campus residents.",
+  },
+  {
+    id: "chairman-residency",
+    name: "Chairman Residency",
+    category: "residential",
+    lon: 81.808374, lat: 16.399912,
+    description: "The official residence of the campus chairman, reflecting the administrative heritage of the institution.",
+  },
+  {
+    id: "gate-salvation",
+    name: "Gate of Salvation",
+    category: "spiritual",
+    lon: 81.809300, lat: 16.398948,
+    description: "The symbolic entrance to the campus, representing the spiritual and welcoming nature of the mission.",
+  },
 ];
 
 export const TOUR_STOPS = [
