@@ -440,7 +440,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
       }
 
       // Tune scene
-      viewer.scene.globe.depthTestAgainstTerrain = false;
+      viewer.scene.globe.depthTestAgainstTerrain = true;
       viewer.scene.skyAtmosphere.show = true;
       viewer.scene.fog.enabled = true;
       viewer.scene.fog.density = 0.0018;
@@ -581,8 +581,9 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         corridor: {
           positions: Cesium.Cartesian3.fromDegreesArray(subdividedCoords),
           width: 0.9, // 0.9 meters wide wall
-          heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-          extrudedHeight: 11.5, // 4.5 meters high
+          height: 0,
+          heightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
+          extrudedHeight: 4.5, // 4.5 meters high
           extrudedHeightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
           material: new Cesium.GridMaterialProperty({
             color: Cesium.Color.fromCssColorString("#cef2f8ff"), // glowing cyan grid lines
@@ -739,7 +740,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         });
 
         // 6. Dance Studio
-        const dPos = Cesium.Cartesian3.fromDegrees(81.807445, 16.400049, 0);
+        const dPos = Cesium.Cartesian3.fromDegrees(81.807993, 16.399867, 0);
         viewer.entities.add({
           id: "loc-amy-3d",
           name: "Dance Studio",
@@ -750,7 +751,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
           ),
           model: {
             uri: "/models/Dance_Studio.glb",
-            scale: 2.0,
+            scale: 0.8,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });
@@ -790,7 +791,7 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
         });
 
         // 9. Bethel Villa
-        const bvPos = Cesium.Cartesian3.fromDegrees(81.808281, 16.400106, 0);
+        const bvPos = Cesium.Cartesian3.fromDegrees(81.808014, 16.399862, 0);
         viewer.entities.add({
           id: "loc-bethel-villa-3d",
           name: "Bethel Villa",
@@ -800,8 +801,42 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
             new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
           ),
           model: {
-            uri: "/models/Betherl villa (1).glb",
+            uri: "/models/Chappel.glb",
             scale: 1.2,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
+
+        // 10. Teachers Quarters
+        const tqPos = Cesium.Cartesian3.fromDegrees(81.808446, 16.400023, 0);
+        viewer.entities.add({
+          id: "loc-teachers-quarters-3d",
+          name: "Teachers Quarters",
+          position: tqPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            tqPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/Teacgers Quarters.glb",
+            scale: 1.0,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          },
+        });
+
+        // 11. Subbamma Chappel
+        const scPos = Cesium.Cartesian3.fromDegrees(81.808974, 16.400538, 0);
+        viewer.entities.add({
+          id: "loc-subbamma-chappel-3d",
+          name: "Subbamma Chappel",
+          position: scPos,
+          orientation: Cesium.Transforms.headingPitchRollQuaternion(
+            scPos,
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(80), 0, 0)
+          ),
+          model: {
+            uri: "/models/Subbamma chapppel.glb",
+            scale: 1.0,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           },
         });
@@ -936,6 +971,8 @@ const CesiumMap = forwardRef<MapHandle, Props>(function CesiumMap(
           "loc-chairman-3d",
           "loc-gate-salvation-3d",
           "loc-bethel-villa-3d",
+          "loc-teachers-quarters-3d",
+          "loc-subbamma-chappel-3d",
           "campus-boundary-wall",
           "grass-field"
         ];

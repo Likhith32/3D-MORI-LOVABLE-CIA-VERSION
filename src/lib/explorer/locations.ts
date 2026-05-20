@@ -111,7 +111,7 @@ export const LOCATIONS: Location[] = [
     id: "amy",
     name: "Amy Dance Studio",
     category: "culture",
-    lon: 81.807445, lat: 16.400049,
+    lon: 81.807993, lat: 16.399867,
     description: "A vibrant, light-filled creative space dedicated to the practice and performance of traditional and modern dance forms. Features floor-to-ceiling mirrors, dance barres, and audio hardware.",
     geojson: "/geo/Amy_Dance_Studio.geojson",
     image: "/images/Dance_Studio.JPG",
@@ -218,11 +218,33 @@ export const LOCATIONS: Location[] = [
     id: "bethel-villa",
     name: "Bethel Villa",
     category: "residential",
-    lon: 81.808281, lat: 16.400106,
+    lon: 81.808014, lat: 16.399862,
     description: "A cozy residential villa on campus offering accommodation and a serene, landscaped environment for visiting faculty, scholars, and key administrative advisors.",
     images: [
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1200",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200"
+    ],
+  },
+  {
+    id: "teachers-quarters",
+    name: "Teachers Quarters",
+    category: "residential",
+    lon: 81.808446, lat: 16.400023,
+    description: "On-campus housing dedicated to faculty members and staff. Ensures proximity to academic buildings and fosters a close-knit educator community.",
+    images: [
+      "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=1200",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1200"
+    ],
+  },
+  {
+    id: "subbamma-chappel",
+    name: "Subbamma Chappel",
+    category: "spiritual",
+    lon: 81.808974, lat: 16.400538,
+    description: "A beautiful chapel providing a space for quiet reflection, spiritual guidance, and regular services for students and staff.",
+    images: [
+      "https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=1200",
+      "https://images.unsplash.com/photo-1545638190-280685c17cf7?q=80&w=1200"
     ],
   },
 ];
